@@ -6,7 +6,7 @@
     <div>To: {{ transaction.to }}</div>
     <div>Value: {{ transaction.value }}</div>
     <div>Gas: {{ transaction.gas }}</div>
-    <a :href="`https://etherscan.io/tx/${transaction.hash}`" target="_blank">Etherscan</a>
+    <a :href="`https://sepolia.etherscan.io/tx/${transaction.hash}`" target="_blank">Etherscan</a>
 
 </template>
 
