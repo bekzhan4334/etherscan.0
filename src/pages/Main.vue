@@ -1,10 +1,12 @@
 <template>
-    <div class="container">
+    <!-- Connect wallet container -->
+    <div class="container"> 
         <button @click="connectionWallet" class="btn">Connect wallet</button>
         <p>User address: {{ $store.state.wallet.address }}</p>
         <p> Chain ID: {{ $store.state.wallet.chainId }}</p>
         <p>Chain: {{ $store.state.wallet.chain }}</p>
     </div>
+    <!-- Send eth to another account -->
     <div class="container">
         <h1 class="header1">Send eth to account</h1>
         <input v-model="to" class="input" placeholder="Enter recipient address"/>
@@ -16,11 +18,14 @@
             </a>
         </div>
     </div>
+    <!-- Deploying the contract --> 
     <div class="container">
         <h1 class="header1">Deploying the contract</h1>
         <button @click="deployCont" class="btn">Deploy contract</button>
         <p>Contract address: {{ contractAddress }}</p>
+        <button v-if="cHash" @click="$router.push(`/transaction/${cHash}`)">{{ cHash }}</button>
     </div>
+    <!-- Interaction with contract --> 
     <div class="container">
         <h1>Contract interaction</h1>
         <h2>Setting the number</h2>
@@ -70,7 +75,8 @@ export default{
             arrayNumber: "",
             numberHash: "",
             stringHash: "",
-            arrayHash: ""
+            arrayHash: "",
+            cHash: ""
         }
     },
     computed: {
@@ -99,6 +105,7 @@ export default{
         async deployCont(){
             let hash = await this.deployContract()
             this.contractAddress = await this.getContractAddress(hash)
+            this.cHash = hash
         },
         async sNumber(){
             this.numberHash = await this.setNumber([this.contractAddress, this.number])
